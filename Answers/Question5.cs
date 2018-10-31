@@ -4,8 +4,8 @@
     {
         public static int Answer(int[] numOfShares, int totalValueOfShares)
         {
-            int result = minAllocations(allowedAllocations, totalValue);
-            return result == int.MAX_VALUE ? 0 : result;
+            int result = minAllocations(numOfShares, totalValueOfShares);
+            return result == int.MaxValue ? 0 : result;
         }
 
 
@@ -15,16 +15,16 @@
             memo[0] = 0;
             // Initialize all table values as Infinite
             for (int i = 1; i <= total; i++) {
-                memo[i] = int.MAX_VALUE;
+                memo[i] = int.MaxValue;
             }
             // Compute minimum coins required for all
             // values from 1 to total
             for (int i = 1; i <= total; i++) {
                 // Go through all coins smaller than i
-                for (int j = 0; j < allowedAllocations.length; j++) {
+                for (int j = 0; j < allowedAllocations.Length; j++) {
                     if (allowedAllocations[j] <= i) {
                         int temp = memo[i - allowedAllocations[j]];
-                        if (temp != int.MAX_VALUE && temp + 1 < memo[i])
+                        if (temp != int.MaxValue && temp + 1 < memo[i])
                             memo[i] = temp + 1;
                     }
                 }

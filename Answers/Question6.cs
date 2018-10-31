@@ -2,13 +2,13 @@
 {
     public class Question6
     {
-        public static int Answer(int numOfServers, int targetServer, int[,] connectionTimeMatrix)
+        public static int Answer(int numServers, int targetServer, int[,] times)
         {
-            boolean[] isUsed = new boolean[numServers];
+            bool[] isUsed = new bool[numServers];
             int[] distance = new int[numServers];
             distance[0] = 0;
             for (int i = 1; i < numServers; i++) {
-                distance[i] = int.MAX_VALUE;
+                distance[i] = int.MaxValue;
             }
 
             for (int count = 0; count < numServers; count++) {
@@ -20,18 +20,18 @@
 
                 for (int j = 0; j < numServers; j++) {
                     if (nodeIndex == j) continue;
-                    if (!isUsed[j] && distance[nodeIndex] != int.MAX_VALUE
-                            && distance[nodeIndex] + times[nodeIndex][j] < distance[j]) {
-                        distance[j] = distance[nodeIndex] + times[nodeIndex][j];
+                    if (!isUsed[j] && distance[nodeIndex] != int.MaxValue
+                            && distance[nodeIndex] + times[nodeIndex,j] < distance[j]) {
+                        distance[j] = distance[nodeIndex] + times[nodeIndex,j];
                     }
                 }
             }
             return distance[targetServer];
         }
-        public static int getMin(boolean[] isUsed, int[] distance) {
-            int min = int.MAX_VALUE;
+        public static int getMin(bool[] isUsed, int[] distance) {
+            int min = int.MaxValue;
             int index = -1;
-            for (int i = 0; i < isUsed.length; i++) {
+            for (int i = 0; i < isUsed.Length; i++) {
                 if (!isUsed[i] && distance[i] < min) {
                     min = distance[i];
                     index = i;

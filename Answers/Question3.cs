@@ -1,30 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using C_Sharp_Challenge_Skeleton.Beans;
 
 namespace C_Sharp_Challenge_Skeleton.Answers
 {
     public class Question3
     {
-        public static int Answer(int numOfNodes, Edge[] edgeLists)
+        public static int checkedNodes;
+        public static int Answer(int numNodes, Edge[] edgeList)
         {
-            if (edgeList.length == 0) return numNodes;
+            if (edgeList.Length == 0) return numNodes;
             checkedNodes = 0;
 
-            Dictionary<int, Set> map = new Dictionary<>();
+            Dictionary<int, HashSet<int>> map = new Dictionary<int, HashSet<int>>();
             foreach (Edge edge in edgeList) {
-                int a = edge.getEdgeA();
-                int b = edge.getEdgeB();
+                int a = edge.EdgeA;
+                int b = edge.EdgeB;
 
-                Set setA = map.getOrDefault(a, new HashSet<int>());
-                setA.add(b);
-                map.put(a, setA);
-                Set setB = map.getOrDefault(b, new HashSet<int>());
-                setB.add(a);
-                map.put(b, setB);
+                HashSet<int> setA = map.GetValueOrDefault(a, new HashSet<int>());
+                setA.Add(b);
+                map.Add(a, setA);
+                HashSet<int> setB = map.GetValueOrDefault(b, new HashSet<int>());
+                setB.Add(a);
+                map.Add(b, setB);
             }
 
             bool[] isChecked = new bool[numNodes + 1];
-            LinkedList<Node> queue = new LinkedList();
+            Queue<Node> queue = new Queue<Node>();
 
             int exchanges = 0;
             while (checkedNodes != numNodes) {
@@ -33,23 +35,21 @@ namespace C_Sharp_Challenge_Skeleton.Answers
                 exchanges += maxExchange;
             }
             int remaining = numNodes - exchanges;
-            return Math.abs(exchanges - remaining);
+            return Math.Abs(exchanges - remaining);
         }
 
-        public static int maxExchanges(Dictionary<int, Set> map, int numNodes, LinkedList<Node> queue, boolean[] isChecked) {
+        public static int maxExchanges(Dictionary<int, HashSet<int>> map, int numNodes, Queue<Node> queue, bool[] isChecked) {
             int localNodes = 0, independent = 0;
-            while (!queue.isEmpty()) {
-                Node currentNode = queue.pop();
+            while (!(queue.Count == 0)) {
+                Node currentNode = queue.Dequeue();
                 int i = currentNode.name;
                 if (currentNode.isIndependent) independent++;
                 checkedNodes++;
                 localNodes++;
-                if (map.containsKey(i)) {
-                    Iterator<int> itr = map.get(i).iterator();
-                    while (itr.hasNext()) {
-                        int temp = itr.next();
+                if (map.ContainsKey(i)) {
+                    foreach (int temp in map[i]) {
                         if (!isChecked[temp]) {
-                            queue.addLast(new Node(temp, !currentNode.isIndependent));
+                            queue.Enqueue(new Node(temp, !currentNode.isIndependent));
                             isChecked[temp] = true;
                         }
                     }
@@ -57,24 +57,24 @@ namespace C_Sharp_Challenge_Skeleton.Answers
 
             }
             // take maximum as bigger is trading exchanges.
-            return Math.max(localNodes - independent, independent);
+            return Math.Max(localNodes - independent, independent);
         }
 
-        public static void fillQueue(LinkedList<Node> queue, boolean[] isChecked, int numNodes) {
+        public static void fillQueue(Queue<Node> queue, bool[] isChecked, int numNodes) {
             for (int i = 1; i <= numNodes; i++) {
                 if (!isChecked[i]) {
                     isChecked[i] = true;
-                    queue.add(new Node(i, true));
+                    queue.Enqueue(new Node(i, true));
                     break;
                 }
             }
         }
 
-        public static class Node {
-            public boolean isIndependent;
+        public class Node {
+            public bool isIndependent;
             public int name;
 
-            public Node(int name, boolean isIndependent) {
+            public Node(int name, bool isIndependent) {
                 this.isIndependent = isIndependent;
                 this.name = name;
             }
