@@ -8,7 +8,7 @@
             int[] distance = new int[numServers];
             distance[0] = 0;
             for (int i = 1; i < numServers; i++) {
-                distance[i] = Integer.MAX_VALUE;
+                distance[i] = int.MAX_VALUE;
             }
 
             for (int count = 0; count < numServers; count++) {
@@ -20,7 +20,7 @@
 
                 for (int j = 0; j < numServers; j++) {
                     if (nodeIndex == j) continue;
-                    if (!isUsed[j] && distance[nodeIndex] != Integer.MAX_VALUE
+                    if (!isUsed[j] && distance[nodeIndex] != int.MAX_VALUE
                             && distance[nodeIndex] + times[nodeIndex][j] < distance[j]) {
                         distance[j] = distance[nodeIndex] + times[nodeIndex][j];
                     }
@@ -29,7 +29,7 @@
             return distance[targetServer];
         }
         public static int getMin(boolean[] isUsed, int[] distance) {
-            int min = Integer.MAX_VALUE;
+            int min = int.MAX_VALUE;
             int index = -1;
             for (int i = 0; i < isUsed.length; i++) {
                 if (!isUsed[i] && distance[i] < min) {

@@ -15,7 +15,7 @@
         }
 
         public static int findMin(int[] arr) {
-            int min = Integer.MAX_VALUE;
+            int min = int.MAX_VALUE;
             foreach (int elem in arr) {
                 if (elem < min) min = elem;
             }
@@ -23,14 +23,14 @@
         }
 
         public static int smallestDifference(int[] shorter, int[] longer) {
-            List<Integer> permutations = new ArrayList<Integer>();
+            List<int> permutations = new ArrayList<int>();
             generatePermutation(shorter, 0, 0, permutations);
     //		System.out.println(permutations);
-            int minDifference = Integer.MAX_VALUE;
+            int minDifference = int.MAX_VALUE;
             foreach (int sum in permutations) {
                 int temp;
                 if (sum > 0) {
-                    Map<String, Integer> memo = new HashMap<>();
+                    Dictionary<String, int> memo = new Dictionary<>();
                     temp = findSum(longer, sum, 0, memo);
                 } else {
                     temp = findMin(longer);
@@ -42,13 +42,13 @@
             return minDifference;
         }
 
-        public static int findSum(int[] longer, int total, int k, Map<String, Integer> memo) {
+        public static int findSum(int[] longer, int total, int k, Dictionary<String, int> memo) {
             if (total <= 0 || k == longer.length) return Math.abs(total);
             if (memo.containsKey(total + ":" + k)) return memo.get(total+":"+k);
             return Math.min(findSum(longer, total - longer[k], k + 1, memo), findSum(longer, total, k + 1, memo));
         }
 
-        public static void generatePermutation(int[] shorter, int k, int sum, List<Integer> result) {
+        public static void generatePermutation(int[] shorter, int k, int sum, List<int> result) {
             if (k == shorter.length) {
                 result.add(sum);
             } else {

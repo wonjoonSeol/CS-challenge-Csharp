@@ -5,7 +5,7 @@
         public static int Answer(int[] numOfShares, int totalValueOfShares)
         {
             int result = minAllocations(allowedAllocations, totalValue);
-            return result == Integer.MAX_VALUE ? 0 : result;
+            return result == int.MAX_VALUE ? 0 : result;
         }
 
 
@@ -15,7 +15,7 @@
             memo[0] = 0;
             // Initialize all table values as Infinite
             for (int i = 1; i <= total; i++) {
-                memo[i] = Integer.MAX_VALUE;
+                memo[i] = int.MAX_VALUE;
             }
             // Compute minimum coins required for all
             // values from 1 to total
@@ -24,7 +24,7 @@
                 for (int j = 0; j < allowedAllocations.length; j++) {
                     if (allowedAllocations[j] <= i) {
                         int temp = memo[i - allowedAllocations[j]];
-                        if (temp != Integer.MAX_VALUE && temp + 1 < memo[i])
+                        if (temp != int.MAX_VALUE && temp + 1 < memo[i])
                             memo[i] = temp + 1;
                     }
                 }

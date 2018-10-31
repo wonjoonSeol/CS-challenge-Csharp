@@ -5,7 +5,7 @@
         public static int Answer(string[,] machineToBeFixed, int numOfConsecutiveMachines)
         {
             if (rows.length == 0) return 0;
-            int minTime = Integer.MAX_VALUE;
+            int minTime = int.MAX_VALUE;
             for (int row = 0; row < rows.length; row++) {
                 int xNum = 0;
                 for (int start = 0; start <= rows[row].length - numberMachines; start++) {
@@ -22,7 +22,7 @@
                             isXFound = true;
                             break;
                         } else {
-                            sum += Integer.parseInt(rows[row][i]);
+                            sum += Int32.parse(rows[row][i]);
                         }
                     }
                     if (isXFound) {
@@ -33,7 +33,7 @@
     //				System.out.println("sum " + sum);
                 }
             }
-            if (minTime != Integer.MAX_VALUE) return minTime;
+            if (minTime != int.MAX_VALUE) return minTime;
             return 0;
         }
     }

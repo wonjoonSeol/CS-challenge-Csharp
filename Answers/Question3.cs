@@ -10,15 +10,15 @@ namespace C_Sharp_Challenge_Skeleton.Answers
             if (edgeList.length == 0) return numNodes;
             checkedNodes = 0;
 
-            Map<Integer, Set> map = new HashMap<>();
+            Dictionary<int, Set> map = new Dictionary<>();
             foreach (Edge edge in edgeList) {
                 int a = edge.getEdgeA();
                 int b = edge.getEdgeB();
 
-                Set setA = map.getOrDefault(a, new HashSet<Integer>());
+                Set setA = map.getOrDefault(a, new HashSet<int>());
                 setA.add(b);
                 map.put(a, setA);
-                Set setB = map.getOrDefault(b, new HashSet<Integer>());
+                Set setB = map.getOrDefault(b, new HashSet<int>());
                 setB.add(a);
                 map.put(b, setB);
             }
@@ -36,7 +36,7 @@ namespace C_Sharp_Challenge_Skeleton.Answers
             return Math.abs(exchanges - remaining);
         }
 
-        public static int maxExchanges(Map<Integer, Set> map, int numNodes, LinkedList<Node> queue, boolean[] isChecked) {
+        public static int maxExchanges(Dictionary<int, Set> map, int numNodes, LinkedList<Node> queue, boolean[] isChecked) {
             int localNodes = 0, independent = 0;
             while (!queue.isEmpty()) {
                 Node currentNode = queue.pop();
@@ -45,7 +45,7 @@ namespace C_Sharp_Challenge_Skeleton.Answers
                 checkedNodes++;
                 localNodes++;
                 if (map.containsKey(i)) {
-                    Iterator<Integer> itr = map.get(i).iterator();
+                    Iterator<int> itr = map.get(i).iterator();
                     while (itr.hasNext()) {
                         int temp = itr.next();
                         if (!isChecked[temp]) {
